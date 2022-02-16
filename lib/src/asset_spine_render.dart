@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
-import 'package:spine_flutter/spine_flutter.dart';
+import 'package:spine_flutter/spine_flutter.dart' as sf;
 
-import '../flame_spine.dart';
+import 'spine_render.dart';
 
 /// Render which load animation from local assets.
 class AssetSpineRender extends SpineRender {
@@ -11,7 +11,7 @@ class AssetSpineRender extends SpineRender {
     bool? loop,
     String? pathPrefix,
     BoxFit? fit,
-    PlayState? playState,
+    sf.PlayState? playState,
   }) : super(
           name: name,
           startAnimation: startAnimation,
@@ -22,6 +22,6 @@ class AssetSpineRender extends SpineRender {
         );
 
   @override
-  Future<SkeletonAnimation?> buildSkeleton() async =>
-      SkeletonAnimation.createWithFiles(name, pathBase: pathPrefix);
+  Future<sf.SkeletonAnimation?> buildSkeleton() async =>
+      sf.SkeletonAnimation.createWithFiles(name, pathBase: pathPrefix);
 }

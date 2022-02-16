@@ -31,7 +31,7 @@ class SpineBoyComponent extends SpineComponent {
       : super(
           size: Vector2(470.65, 731.54) / 4,
           position: Vector2(100, 300),
-          render: AssetSpineRender(
+          spineRender: AssetSpineRender(
             name: 'spineboy',
             startAnimation: 'walk',
             loop: true,

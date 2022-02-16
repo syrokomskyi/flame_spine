@@ -138,11 +138,9 @@ packages:
   spine_flutter:
     dependency: "direct main"
     description:
-      path: "."
-      ref: extended_1_simple
-      resolved-ref: "58d76925a204da76ed01b83d1281bb293a308d3c"
-      url: "https://github.com/signmotion/spine_flutter.git"
-    source: git
+      path: "../../spine_flutter"
+      relative: true
+    source: path
     version: "0.1.1"
   stack_trace:
     dependency: transitive

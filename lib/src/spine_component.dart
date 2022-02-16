@@ -1,23 +1,24 @@
+import 'dart:ui';
+
 import 'package:flame/components.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:spine_core/spine_core.dart' as sc;
 
-import '../flame_spine.dart';
+import 'spine_render.dart';
 
 /// A [PositionComponent] that renders a [SpineRender].
 class SpineComponent extends PositionComponent {
   final SpineRender spineRender;
 
   SpineComponent({
-    required SpineRender render,
+    required this.spineRender,
     Vector2? size,
     Vector2? position,
     Vector2? scale,
     double? angle,
     Anchor? anchor,
     int? priority,
-  })  : spineRender = render,
-        super(
+  })  : super(
           position: position,
           size: size,
           scale: scale,

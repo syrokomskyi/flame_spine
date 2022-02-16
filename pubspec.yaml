@@ -13,9 +13,10 @@ dependencies:
   spine_core: ^0.3.2
 
   spine_flutter:
-    git:
-      url: https://github.com/signmotion/spine_flutter.git
-      ref: extended_1_simple
+    path: ../spine_flutter
+    #git:
+    #  url: https://github.com/signmotion/spine_flutter.git
+    #  ref: extended_1_simple
 
   flutter:
     sdk: flutter

@@ -1,7 +1,10 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:spine_flutter/spine_flutter.dart';
+import 'package:spine_flutter/spine_flutter.dart' as sf;
+
+import 'spine_skeleton_render.dart';
 
 /// A class that wraps all the settings of a Spine animation from [name].
 /// It has a API to the [SkeletonRenderObjectWidget] widget.
@@ -21,14 +24,14 @@ abstract class SpineRender {
   final String pathPrefix;
 
   final BoxFit fit;
-  final PlayState playState;
+  final sf.PlayState playState;
 
   /// \todo Add [alignment] into the constructor.
   final Alignment alignment = Alignment.topLeft;
 
-  SkeletonAnimation? skeleton;
+  sf.SkeletonAnimation? skeleton;
 
-  SkeletonRenderObject? _skeletonRender;
+  SpineSkeletonRenderObject? skeletonRender;
 
   bool get isPrepared => skeleton != null;
 
@@ -38,37 +41,36 @@ abstract class SpineRender {
     bool? loop,
     String? pathPrefix,
     BoxFit? fit,
-    PlayState? playState,
+    sf.PlayState? playState,
   })  : assert(name.isNotEmpty),
         loop = loop ?? false,
         pathPrefix = pathPrefix ?? '',
         fit = fit ?? BoxFit.contain,
-        playState = playState ?? PlayState.playing {
+        playState = playState ?? sf.PlayState.playing {
     animation = startAnimation ?? defaultAnimation;
     assert(animation.isNotEmpty);
   }
 
   Future<void> init() async {
     skeleton = await buildSkeleton();
-    _skeletonRender = SkeletonRenderObject()
-      ..skeleton = skeleton!
-      ..fit = fit
-      ..alignment = alignment
-      ..playState = playState
-      ..debugRendering = false
-      ..triangleRendering = true;
+    skeletonRender = buildSkeletonRenderObject();
 
     skeleton!.state.setAnimation(0, animation, loop);
   }
 
-  Future<SkeletonAnimation?> buildSkeleton();
+  SpineSkeletonRenderObject buildSkeletonRenderObject() =>
+      SpineSkeletonRenderObject()
+        ..skeleton = skeleton!
+        ..fit = fit
+        ..alignment = alignment
+        ..playState = playState
+        ..debugRendering = false
+        ..triangleRendering = true;
+
+  Future<sf.SkeletonAnimation?> buildSkeleton();
 
   void render(Canvas canvas, Size preferredSize) {
-    if (skeleton == null) {
-      return;
-    }
-
-    if (_skeletonRender == null) {
+    if (skeleton == null || skeletonRender == null) {
       return;
     }
 
@@ -78,15 +80,7 @@ abstract class SpineRender {
   /// Paint procedures ported from [SkeletonRenderObject.paint]
   /// with some changes that makes sense on a Flame context.
   void _paint(Canvas canvas, Size size) {
-    if (_skeletonRender == null) {
-      return;
-    }
-
-    if (skeleton == null) {
-      return;
-    }
-
-    final ro = _skeletonRender!;
+    final ro = skeletonRender!;
     final bounds = ro.bounds;
     if (bounds == null) {
       return;
@@ -156,10 +150,6 @@ abstract class SpineRender {
   }
 
   void destroy() {
-    if (_skeletonRender == null) {
-      return;
-    }
-
-    _skeletonRender?.dispose();
+    skeletonRender?.dispose();
   }
 }
