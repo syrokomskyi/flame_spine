@@ -38,6 +38,8 @@ class SpineComponent extends PositionComponent {
       print('boundsSize ${boundsSize.x} ${boundsSize.y}');
       size.setFrom(Vector2(boundsSize.x, boundsSize.y));
     }
+
+    return super.onLoad();
   }
 
   @override
