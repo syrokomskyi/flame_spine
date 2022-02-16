@@ -1,0 +1,27 @@
+name: flame_spine
+description: Spine animation support for the Flame game engine. This uses the spine_core and spine_flutter packages and provides wrappers and components to be used inside Flame.
+homepage: https://github.com/flame-engine/flame
+publish_to: 'none'
+version: 0.1.0+100
+
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flame: 1.0.0
+  spine_core: ^0.3.2
+
+  spine_flutter:
+    git:
+      url: https://github.com/signmotion/spine_flutter.git
+      ref: extended_1_simple
+
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  dartdoc: ^4.1.0
+  flutter_test:
+    sdk: flutter
+  dart_code_metrics: ^4.1.0
