@@ -6,7 +6,7 @@ import '../flame_spine.dart';
 
 /// A [PositionComponent] that renders a [SpineRender].
 class SpineComponent extends PositionComponent {
-  final SpineRender _render;
+  final SpineRender spineRender;
 
   SpineComponent({
     required SpineRender render,
@@ -16,7 +16,7 @@ class SpineComponent extends PositionComponent {
     double? angle,
     Anchor? anchor,
     int? priority,
-  })  : _render = render,
+  })  : spineRender = render,
         super(
           position: position,
           size: size,
@@ -28,13 +28,13 @@ class SpineComponent extends PositionComponent {
 
   @override
   Future<void>? onLoad() async {
-    await _render.init();
+    await spineRender.init();
 
     if (size.isZero()) {
       final boundsOffset = sc.Vector2();
       final boundsSize = sc.Vector2();
       final temp = <double>[];
-      _render.skeleton!.getBounds(boundsOffset, boundsSize, temp);
+      spineRender.skeleton!.getBounds(boundsOffset, boundsSize, temp);
       print('boundsSize ${boundsSize.x} ${boundsSize.y}');
       size.setFrom(Vector2(boundsSize.x, boundsSize.y));
     }
@@ -44,11 +44,11 @@ class SpineComponent extends PositionComponent {
 
   @override
   @mustCallSuper
-  void render(Canvas canvas) => _render.render(canvas, size.toSize());
+  void render(Canvas canvas) => spineRender.render(canvas, size.toSize());
 
   @override
   void onRemove() {
-    _render.destroy();
+    spineRender.destroy();
 
     super.onRemove();
   }
