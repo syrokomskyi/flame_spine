@@ -26,9 +26,11 @@ abstract class SpineRender {
   /// \todo Add [alignment] into the constructor.
   final Alignment alignment = Alignment.topLeft;
 
-  late SkeletonAnimation? skeleton;
+  SkeletonAnimation? skeleton;
 
-  late SkeletonRenderObject? _skeletonRender;
+  SkeletonRenderObject? _skeletonRender;
+
+  bool get isPrepared => skeleton != null;
 
   SpineRender({
     required this.name,
@@ -62,11 +64,11 @@ abstract class SpineRender {
   Future<SkeletonAnimation?> buildSkeleton();
 
   void render(Canvas canvas, Size preferredSize) {
-    if (_skeletonRender == null) {
+    if (skeleton == null) {
       return;
     }
 
-    if (skeleton == null) {
+    if (_skeletonRender == null) {
       return;
     }
 
