@@ -129,7 +129,7 @@ packages:
     source: hosted
     version: "0.3.3"
   spine_flutter:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "../../spine_flutter"
       relative: true
